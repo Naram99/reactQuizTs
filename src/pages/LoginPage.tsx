@@ -1,18 +1,41 @@
 import { useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import FormValues from "../components/formValues";
 
 export default function LoginPage() {
     const [register, setRegister] = useState(false);
+
+    const [formValues, setFormValues] = useState<FormValues>({
+        userName: "",
+        password: "",
+    });
 
     function toggleRegister(): void {
         setRegister(!register);
     }
 
+    //TODO: call backend with data
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        formValues;
+    }
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = e.target;
+        setFormValues({
+            ...formValues,
+            [name]: value,
+        });
+    }
+
     return (
         <div className="loginWrapper">
             <div className="loginFormCt">
-                <form action="" id="loginForm">
-                    <label htmlFor="userName">Felhasználónév</label>
-                    <input type="text" name="userName" id="userNameInput" />
+                <Form id="loginForm" onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Label htmlFor="userName">Felhasználónév</Form.Label>
+                        <Form.Control type="text" name="userName" id="userNameInput" onChange={handleChange} />
+                    </Form.Group>
                     <label htmlFor="userName">Jelszó</label>
                     <input type="password" name="userPw" id="userPwInput" />
                     {register && (
@@ -21,8 +44,10 @@ export default function LoginPage() {
                             <input type="password" name="userPwCheck" id="userPwCheckInput" />
                         </>
                     )}
-                </form>
-                <button onClick={toggleRegister}>{register ? "Bejelentkezés" : "Regisztráció"}</button>
+                </Form>
+                <Button variant="warning" onClick={toggleRegister}>
+                    {register ? "Bejelentkezés" : "Regisztráció"}
+                </Button>
             </div>
         </div>
     );
