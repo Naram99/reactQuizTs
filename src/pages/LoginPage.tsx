@@ -8,6 +8,7 @@ export default function LoginPage() {
     const [formValues, setFormValues] = useState<FormValues>({
         userName: "",
         password: "",
+        passwordCheck: "",
     });
 
     function toggleRegister(): void {
@@ -17,7 +18,7 @@ export default function LoginPage() {
     //TODO: call backend with data
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        formValues;
+        console.log(formValues);
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,6 +27,7 @@ export default function LoginPage() {
             ...formValues,
             [name]: value,
         });
+        console.log(formValues);
     }
 
     return (
@@ -36,15 +38,27 @@ export default function LoginPage() {
                         <Form.Label htmlFor="userName">Felhasználónév</Form.Label>
                         <Form.Control type="text" name="userName" id="userNameInput" onChange={handleChange} />
                     </Form.Group>
-                    <label htmlFor="userName">Jelszó</label>
-                    <input type="password" name="userPw" id="userPwInput" />
+                    <Form.Group>
+                        <Form.Label htmlFor="password">Jelszó</Form.Label>
+                        <Form.Control type="password" name="password" id="passwordInput" onChange={handleChange} />
+                    </Form.Group>
                     {register && (
                         <>
-                            <label htmlFor="userName">Jelszó újra</label>
-                            <input type="password" name="userPwCheck" id="userPwCheckInput" />
+                            <Form.Group>
+                                <Form.Label htmlFor="passwordCheck">Jelszó újra</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    name="passwordCheck"
+                                    id="passwordCheckInput"
+                                    onChange={handleChange}
+                                />
+                            </Form.Group>
                         </>
                     )}
                 </Form>
+                <Button variant="danger" type="submit">
+                    {register ? "Regisztráció" : "Bejelentkezés"}
+                </Button>
                 <Button variant="warning" onClick={toggleRegister}>
                     {register ? "Bejelentkezés" : "Regisztráció"}
                 </Button>
