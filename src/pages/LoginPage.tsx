@@ -55,10 +55,10 @@ export default function LoginPage() {
                             </Form.Group>
                         </>
                     )}
+                    <Button variant="danger" type="submit">
+                        {register ? "Regisztráció" : "Bejelentkezés"}
+                    </Button>
                 </Form>
-                <Button variant="danger" type="submit">
-                    {register ? "Regisztráció" : "Bejelentkezés"}
-                </Button>
                 <Button variant="warning" onClick={toggleRegister}>
                     {register ? "Bejelentkezés" : "Regisztráció"}
                 </Button>
