@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import FormValues from "../components/formValues";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
+
     const [register, setRegister] = useState(false);
 
     const [formValues, setFormValues] = useState<FormValues>({
@@ -59,9 +62,19 @@ export default function LoginPage() {
                         {register ? "Regisztráció" : "Bejelentkezés"}
                     </Button>
                 </Form>
-                <Button variant="warning" onClick={toggleRegister}>
-                    {register ? "Bejelentkezés" : "Regisztráció"}
-                </Button>
+            </div>
+            <div className="loginBtnsCt">
+                <Form.Group>
+                    <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
+                    <Button variant="warning" onClick={toggleRegister}>
+                        {register ? "Bejelentkezés" : "Regisztráció"}
+                    </Button>
+                </Form.Group>
+                <Form.Group>
+                    <Button variant="primary" onClick={() => navigate("/guest")}>
+                        Belépés egy játékba vendégként
+                    </Button>
+                </Form.Group>
             </div>
         </div>
     );
