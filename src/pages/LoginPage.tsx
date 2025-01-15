@@ -3,15 +3,16 @@ import { Button, Form } from "react-bootstrap";
 import FormValues from "../components/formValues";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage(): JSX.Element {
     const navigate = useNavigate();
 
-    const [register, setRegister] = useState(false);
+    const [register, setRegister] = useState<Boolean>(false);
 
     const [formValues, setFormValues] = useState<FormValues>({
         userName: "",
         password: "",
         passwordCheck: "",
+        gameId: "",
     });
 
     function toggleRegister(): void {
@@ -30,7 +31,6 @@ export default function LoginPage() {
             ...formValues,
             [name]: value,
         });
-        console.log(formValues);
     }
 
     return (
