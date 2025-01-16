@@ -23,6 +23,7 @@ export default function LoginPage(): JSX.Element {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(formValues);
+        console.log(e.target);
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -35,6 +36,17 @@ export default function LoginPage(): JSX.Element {
 
     return (
         <div className="loginWrapper">
+            <div className="guestFormCt">
+                <Form id="guestForm" onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>Játékazonosító</Form.Label>
+                        <Form.Control type="text" name="gameId" id="gameIdInput" onChange={handleChange} />
+                    </Form.Group>
+                    <Button type="submit" variant="primary">
+                        Belépés
+                    </Button>
+                </Form>
+            </div>
             <div className="loginFormCt">
                 <Form id="loginForm" onSubmit={handleSubmit}>
                     <Form.Group>
@@ -64,17 +76,10 @@ export default function LoginPage(): JSX.Element {
                 </Form>
             </div>
             <div className="loginBtnsCt">
-                <Form.Group>
-                    <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
-                    <Button variant="warning" onClick={toggleRegister}>
-                        {register ? "Bejelentkezés" : "Regisztráció"}
-                    </Button>
-                </Form.Group>
-                <Form.Group>
-                    <Button variant="primary" onClick={() => navigate("/guest")}>
-                        Belépés egy játékba vendégként
-                    </Button>
-                </Form.Group>
+                <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
+                <Button variant="warning" onClick={toggleRegister}>
+                    {register ? "Bejelentkezés" : "Regisztráció"}
+                </Button>
             </div>
         </div>
     );

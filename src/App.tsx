@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
-import GuestPage from "./pages/GuestPage";
 
 const router = createBrowserRouter([
     {
@@ -12,10 +11,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <LoginPage />,
-    },
-    {
-        path: "/guest",
-        element: <GuestPage />,
     },
 ]);
 
