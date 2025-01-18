@@ -1,19 +1,24 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import { NavDropdown } from "react-bootstrap";
 
 export default function NavigationBar(): JSX.Element {
     return (
-        <Container className="">
-            <Navbar fixed="top" bg="dark" data-bs-theme="dark" className="bg-body-tertiary justify-content-between">
-                <Navbar.Brand className="">Üdv!</Navbar.Brand>
-                <Nav variant="underline" className="">
-                    <Nav.Item>
-                        <Nav.Link href="/home">Irányítópult</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/help">Segítség</Nav.Link>
-                    </Nav.Item>
+        <Navbar fixed="top" bg="dark" variant="dark" className="px-3">
+            <Container>
+                <Navbar.Brand>Üdv!</Navbar.Brand>
+                <Nav className="ms-auto">
+                    <Nav.Link href="/home">Irányítópult</Nav.Link>
+                    <Nav.Link href="/help">Segítség</Nav.Link>
+                    <NavDropdown title="userId">
+                        <NavDropdown.Item href="/profile">Profil</NavDropdown.Item>
+                        <NavDropdown.Item href="/settings">Beállítások</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="/logout">Kijelentkezés</NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
-            </Navbar>
-        </Container>
+            </Container>
+        </Navbar>
     );
 }

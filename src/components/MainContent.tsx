@@ -1,7 +1,9 @@
+import { Container } from "react-bootstrap";
+
 export default function MainContent(): JSX.Element {
     return (
         <main>
-            <div className="main-content-ct"></div>
+            <Container></Container>
         </main>
     );
 }
