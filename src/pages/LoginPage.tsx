@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import FormValues from "../components/formValues";
+import FormValues from "../models/formValues";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage(): JSX.Element {
+const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const [register, setRegister] = useState<Boolean>(false);
@@ -83,4 +83,6 @@ export default function LoginPage(): JSX.Element {
             </div>
         </div>
     );
-}
+};
+
+export default LoginPage;

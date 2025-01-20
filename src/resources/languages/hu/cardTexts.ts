@@ -1,6 +1,7 @@
 import { cardData } from "../../../models/cardData";
+import { cardType } from "../../../models/cardType";
 
-export const cardTexts: { [index: string]: cardData } = {
+export const cardTexts: Record<cardType, cardData> = {
     chat: {
         title: "Csevegőfelület",
         description: "Hogy mindig elérd a barátaidat!",
