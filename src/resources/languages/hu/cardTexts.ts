@@ -1,5 +1,5 @@
-import { cardData } from "../../../models/cardData";
-import { cardType } from "../../../models/cardType";
+import { cardData } from "../../../models/cardData.type";
+import { cardType } from "../../../models/cardType.type";
 
 export const cardTexts: Record<cardType, cardData> = {
     chat: {

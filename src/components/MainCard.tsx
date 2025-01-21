@@ -1,5 +1,5 @@
 import { Badge, Button, Card } from "react-bootstrap";
-import { cardData } from "../models/cardData";
+import { cardData } from "../models/cardData.type";
 
 const MainCard: React.FC<cardData> = ({ title, description, notification, buttonText, buttonLink }) => {
     return (

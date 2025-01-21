@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.navbarLogo {
+    height: 3rem;
+}
+
 .loginWrapper {
     display: flex;
     gap: 2rem;
