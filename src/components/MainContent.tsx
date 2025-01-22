@@ -7,15 +7,11 @@ export default function MainContent(): JSX.Element {
         <main>
             <Container>
                 <Row className="justify-content-between">
-                    <Col md="4" sm="12">
-                        <MainCard {...cardTexts.chat}></MainCard>
-                    </Col>
-                    <Col md="4" sm="12">
-                        <MainCard {...cardTexts.forum}></MainCard>
-                    </Col>
-                    <Col md="4" sm="12">
-                        <MainCard {...cardTexts.games}></MainCard>
-                    </Col>
+                    {Object.entries(cardTexts).map(([key, card]) => (
+                        <Col key={key} md="4" sm="12" className="h-100">
+                            <MainCard {...card}></MainCard>
+                        </Col>
+                    ))}
                 </Row>
             </Container>
         </main>

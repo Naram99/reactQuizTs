@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import FormValues from "../models/formValues";
-import { useNavigate } from "react-router-dom";
+import { Button, Container, Form, Card } from "react-bootstrap";
+import FormValues from "../models/formValues.interface";
+// import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [register, setRegister] = useState<Boolean>(false);
 
@@ -35,8 +35,8 @@ const LoginPage: React.FC = () => {
     }
 
     return (
-        <div className="loginWrapper">
-            <div className="guestFormCt">
+        <Container className="loginWrapper">
+            <Card className="guestFormCt">
                 <Form id="guestForm" onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Játékazonosító</Form.Label>
@@ -46,8 +46,8 @@ const LoginPage: React.FC = () => {
                         Belépés
                     </Button>
                 </Form>
-            </div>
-            <div className="loginFormCt">
+            </Card>
+            <Card className="loginFormCt">
                 <Form id="loginForm" onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label htmlFor="userName">Felhasználónév</Form.Label>
@@ -74,14 +74,14 @@ const LoginPage: React.FC = () => {
                         {register ? "Regisztráció" : "Bejelentkezés"}
                     </Button>
                 </Form>
-            </div>
-            <div className="loginBtnsCt">
+            </Card>
+            <Card className="loginBtnsCt">
                 <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
                 <Button variant="warning" onClick={toggleRegister}>
                     {register ? "Bejelentkezés" : "Regisztráció"}
                 </Button>
-            </div>
-        </div>
+            </Card>
+        </Container>
     );
 };
 

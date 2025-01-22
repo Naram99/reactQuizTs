@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { NavDropdown } from "react-bootstrap";
-import logo from "../assets/whiteTextLogo.png";
+import logo from "../assets/logoWhite.png";
 
 export default function NavigationBar(): JSX.Element {
     return (
