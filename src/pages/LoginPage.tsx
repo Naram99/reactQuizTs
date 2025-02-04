@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form, Card } from "react-bootstrap";
 import FormValues from "../models/formValues.interface";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginPage: React.FC = () => {
-    // const navigate = useNavigate();
+    const { authenticated } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (authenticated) {
+            navigate("/home");
+        }
+    }, [authenticated, navigate]);
 
     const [register, setRegister] = useState<boolean>(false);
 
@@ -37,15 +45,7 @@ const LoginPage: React.FC = () => {
                 throw new Error("Login error");
             }
 
-            const data = await response.json();
-            console.log(data);
-
-            const check = await fetch("http://localhost:3000/api/checkAuth", {
-                method: "GET",
-                credentials: "include",
-            });
-
-            console.log(await check.json());
+            navigate("/home");
         } catch (error) {
             console.log(error);
         }

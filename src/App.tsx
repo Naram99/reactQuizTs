@@ -4,6 +4,8 @@ import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import HelpPage from "./pages/HelpPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthProvider";
 
 const router = createBrowserRouter([
     {
@@ -16,16 +18,28 @@ const router = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <UserPage />,
+        element: (
+            <ProtectedRoute>
+                <UserPage />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/help",
-        element: <HelpPage />,
+        element: (
+            <ProtectedRoute>
+                <HelpPage />
+            </ProtectedRoute>
+        ),
     },
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
+    );
 }
 
 export default App;
