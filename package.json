@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.1.0",
     "type": "module",
-    "description": "Quiz app built with React + TS",
+    "description": "Quiz and chat app built with React + TS",
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",

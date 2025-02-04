@@ -6,7 +6,7 @@ import FormValues from "../models/formValues.interface";
 const LoginPage: React.FC = () => {
     // const navigate = useNavigate();
 
-    const [register, setRegister] = useState<Boolean>(false);
+    const [register, setRegister] = useState<boolean>(false);
 
     const [formValues, setFormValues] = useState<FormValues>({
         userName: "",
@@ -20,10 +20,35 @@ const LoginPage: React.FC = () => {
     }
 
     //TODO: call backend with data
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(formValues);
-        console.log(e.target);
+
+        try {
+            const response = await fetch("http://localhost:3000/api/login", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formValues),
+            });
+
+            if (!response.ok) {
+                throw new Error("Login error");
+            }
+
+            const data = await response.json();
+            console.log(data);
+
+            const check = await fetch("http://localhost:3000/api/checkAuth", {
+                method: "GET",
+                credentials: "include",
+            });
+
+            console.log(await check.json());
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
