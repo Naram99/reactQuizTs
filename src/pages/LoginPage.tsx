@@ -2,14 +2,18 @@ import { useState } from "react";
 import { Button, Container, Form, Card } from "react-bootstrap";
 import FormValues from "../models/formValues.interface";
 import { useNavigate } from "react-router-dom";
+import Validator from "../models/Validator";
 
 const LoginPage: React.FC = () => {
+    const validator = new Validator();
+
     const navigate = useNavigate();
 
     const [register, setRegister] = useState<boolean>(false);
 
     const [formValues, setFormValues] = useState<FormValues>({
         userName: "",
+        email: "",
         password: "",
         passwordCheck: "",
         gameId: "",
@@ -23,8 +27,15 @@ const LoginPage: React.FC = () => {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        const endpoint: string = register ? "register" : e.currentTarget.id.replace("Form", "");
+
         try {
-            const response = await fetch("http://localhost:3000/api/login", {
+            if (endpoint === "register") {
+                const validated = validator.registerValidate(formValues);
+                if (!validated.valid) throw new Error(validated.cause ? validated.cause : "Register error");
+            }
+
+            const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -34,10 +45,9 @@ const LoginPage: React.FC = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Login error");
+                throw new Error("Server error");
             }
-
-            navigate("/main/home");
+            if (endpoint === "login") navigate("/main/home");
         } catch (error) {
             console.log(error);
         }
@@ -84,6 +94,10 @@ const LoginPage: React.FC = () => {
                                     id="passwordCheckInput"
                                     onChange={handleChange}
                                 />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label htmlFor="email">Email cím</Form.Label>
+                                <Form.Control type="email" name="email" id="emailInput" onChange={handleChange} />
                             </Form.Group>
                         </>
                     )}
