@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Container, Form, Card } from "react-bootstrap";
 import FormValues from "../models/formValues.interface";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 
 const LoginPage: React.FC = () => {
-    const { authenticated } = useAuth();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (authenticated) {
-            navigate("/home");
-        }
-    }, [authenticated, navigate]);
 
     const [register, setRegister] = useState<boolean>(false);
 
@@ -45,7 +37,7 @@ const LoginPage: React.FC = () => {
                 throw new Error("Login error");
             }
 
-            navigate("/home");
+            navigate("/main/home");
         } catch (error) {
             console.log(error);
         }

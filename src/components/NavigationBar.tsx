@@ -12,8 +12,8 @@ export default function NavigationBar(): JSX.Element {
                     <img src={logo} alt="DROVE logo" className="navbarLogo" />
                 </Navbar.Brand>
                 <Nav className="ms-auto">
-                    <Nav.Link href="/home">Irányítópult</Nav.Link>
-                    <Nav.Link href="/help">Segítség</Nav.Link>
+                    <Nav.Link href="/main/home">Irányítópult</Nav.Link>
+                    <Nav.Link href="/main/help">Segítség</Nav.Link>
                     <NavDropdown title="userId">
                         <NavDropdown.Item href="/profile">Profil</NavDropdown.Item>
                         <NavDropdown.Item href="/settings">Beállítások</NavDropdown.Item>

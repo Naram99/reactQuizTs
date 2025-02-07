@@ -4,42 +4,40 @@ import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import HelpPage from "./pages/HelpPage";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { AuthProvider } from "./context/AuthProvider";
+import { Gatekeeper } from "./components/Gatekeeper";
+import { LogoutPage } from "./pages/LogoutPage";
 
 const router = createBrowserRouter([
-    {
-        path: "/login",
-        element: <LoginPage />,
-    },
     {
         path: "/",
         element: <LoginPage />,
     },
     {
-        path: "/home",
-        element: (
-            <ProtectedRoute>
-                <UserPage />
-            </ProtectedRoute>
-        ),
+        path: "/login",
+        element: <LoginPage />,
     },
     {
-        path: "/help",
-        element: (
-            <ProtectedRoute>
-                <HelpPage />
-            </ProtectedRoute>
-        ),
+        path: "/logout",
+        element: <LogoutPage />,
+    },
+    {
+        path: "/main",
+        element: <Gatekeeper />,
+        children: [
+            {
+                path: "help",
+                element: <HelpPage />,
+            },
+            {
+                path: "home",
+                element: <UserPage />,
+            },
+        ],
     },
 ]);
 
 function App() {
-    return (
-        <AuthProvider>
-            <RouterProvider router={router} />
-        </AuthProvider>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
