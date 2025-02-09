@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Button, Container, Form, Card } from "react-bootstrap";
+import { Button, Container, Form, Card, Row } from "react-bootstrap";
 import FormValues from "../models/formValues.interface";
 import { useNavigate } from "react-router-dom";
 import Validator from "../models/Validator";
 
 const LoginPage: React.FC = () => {
     const validator = new Validator();
-
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const [register, setRegister] = useState<boolean>(false);
 
@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
                 if (!validated.valid) throw new Error(validated.cause ? validated.cause : "Register error");
             }
 
-            const response = await fetch(`http://localhost:3000/api/${endpoint}`, {
+            const response = await fetch(`${API_URL}/${endpoint}`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -63,55 +63,57 @@ const LoginPage: React.FC = () => {
 
     return (
         <Container className="loginWrapper">
-            <Card className="guestFormCt">
-                <Form id="guestForm" onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Játékazonosító</Form.Label>
-                        <Form.Control type="text" name="gameId" id="gameIdInput" onChange={handleChange} />
-                    </Form.Group>
-                    <Button type="submit" variant="primary">
-                        Belépés
+            <Row>
+                <Card className="guestFormCt">
+                    <Form id="guestForm" onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>Játékazonosító</Form.Label>
+                            <Form.Control type="text" name="gameId" id="gameIdInput" onChange={handleChange} />
+                        </Form.Group>
+                        <Button type="submit" variant="primary">
+                            Belépés
+                        </Button>
+                    </Form>
+                </Card>
+                <Card className="loginFormCt">
+                    <Form id="loginForm" onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label htmlFor="userName">Felhasználónév</Form.Label>
+                            <Form.Control type="text" name="userName" id="userNameInput" onChange={handleChange} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label htmlFor="password">Jelszó</Form.Label>
+                            <Form.Control type="password" name="password" id="passwordInput" onChange={handleChange} />
+                        </Form.Group>
+                        {register && (
+                            <>
+                                <Form.Group>
+                                    <Form.Label htmlFor="passwordCheck">Jelszó újra</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="passwordCheck"
+                                        id="passwordCheckInput"
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label htmlFor="email">Email cím</Form.Label>
+                                    <Form.Control type="email" name="email" id="emailInput" onChange={handleChange} />
+                                </Form.Group>
+                            </>
+                        )}
+                        <Button variant="danger" type="submit">
+                            {register ? "Regisztráció" : "Bejelentkezés"}
+                        </Button>
+                    </Form>
+                </Card>
+                <Card className="loginBtnsCt">
+                    <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
+                    <Button variant="warning" onClick={toggleRegister}>
+                        {register ? "Bejelentkezés" : "Regisztráció"}
                     </Button>
-                </Form>
-            </Card>
-            <Card className="loginFormCt">
-                <Form id="loginForm" onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label htmlFor="userName">Felhasználónév</Form.Label>
-                        <Form.Control type="text" name="userName" id="userNameInput" onChange={handleChange} />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label htmlFor="password">Jelszó</Form.Label>
-                        <Form.Control type="password" name="password" id="passwordInput" onChange={handleChange} />
-                    </Form.Group>
-                    {register && (
-                        <>
-                            <Form.Group>
-                                <Form.Label htmlFor="passwordCheck">Jelszó újra</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    name="passwordCheck"
-                                    id="passwordCheckInput"
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label htmlFor="email">Email cím</Form.Label>
-                                <Form.Control type="email" name="email" id="emailInput" onChange={handleChange} />
-                            </Form.Group>
-                        </>
-                    )}
-                    <Button variant="danger" type="submit">
-                        {register ? "Regisztráció" : "Bejelentkezés"}
-                    </Button>
-                </Form>
-            </Card>
-            <Card className="loginBtnsCt">
-                <Form.Text>{register ? "Már van fiókod?" : "Még nincs fiókod?"}</Form.Text>
-                <Button variant="warning" onClick={toggleRegister}>
-                    {register ? "Bejelentkezés" : "Regisztráció"}
-                </Button>
-            </Card>
+                </Card>
+            </Row>
         </Container>
     );
 };

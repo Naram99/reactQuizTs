@@ -3,8 +3,9 @@ import { Button } from "react-bootstrap";
 
 export const LogoutPage: React.FC = () => {
     useEffect(() => {
+        const API_URL = import.meta.env.VITE_API_URL;
         const logout = async () => {
-            const resp = await fetch("http://localhost:3000/logout", {
+            const resp = await fetch(`${API_URL}/logout`, {
                 method: "GET",
                 credentials: "include",
             });
